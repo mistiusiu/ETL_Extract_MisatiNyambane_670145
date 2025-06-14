@@ -1,4 +1,4 @@
-# Simple Extraction Pipeline
+# Extraction and Transformation Pipeline
 
 `Randy Misati Nyambane`: `670145`
 
@@ -7,6 +7,15 @@
 The project uses WSL Ubuntu 24.04 OS with default configurations as the operating system environment. The Notebook loads data from the `.csv` file in two iterations.
 
 The first iteration loads all the data in the CSV file into a pandas dataframe. The second iteration loads data from the CSV file into a pandas dataframe after a certain time point written in the `last_extraction.txt`. It then locates the very latest date available in the dataset and sets the last_extraction checkpoint to that.
+
+Afterwards the data is transformed by:
+
+- Dropping irrelevant columns
+- Dropping duplicate rows
+- Replacing missing values using imputation
+- Converting values in the `0-10` range into their corresponding textual representations from 5 predefined groups
+
+Finally, the data is saved into a suitable CSV file.
 
 ## Tools and Frameworks
 
