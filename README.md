@@ -6,9 +6,13 @@
 
 The project uses WSL Ubuntu 24.04 OS with default configurations as the operating system environment. The Notebook loads data from the `.csv` file in two iterations.
 
+### Extract
+
 The first iteration loads all the data in the CSV file into a pandas dataframe. The second iteration loads data from the CSV file into a pandas dataframe after a certain time point written in the `last_extraction.txt`. It then locates the very latest date available in the dataset and sets the last_extraction checkpoint to that.
 
-Afterwards the data is transformed by:
+### Transform
+
+The data is transformed by:
 
 - Dropping irrelevant columns
 - Dropping duplicate rows
@@ -16,6 +20,28 @@ Afterwards the data is transformed by:
 - Converting values in the `0-10` range into their corresponding textual representations from 5 predefined groups
 
 Finally, the data is saved into a suitable CSV file.
+
+### Load
+
+The loading method employed is using the `sqlite` Python package to save the full and incremental data to an SQLite Database. First, a connection to the relevant files is established:
+
+```python
+# Creating the connections
+full_conn = sqlite3.connect("loaded_data/full_data.db")
+```
+
+Next, the CSV file is imported into a Pandas dataframe. Afterwards, the schema is inferred based on the columns present in the Pandas dataframe and the data saved to an SQLite Database:
+
+```python
+df_full.to_sql("full_data", con=full_conn, if_exists="replace", index=False)
+```
+
+The saving of the data is validated by running the SQL code using a Python sqlite function:
+
+```python
+# Previewing the data using SQL Queries
+df_full_loaded = pd.read_sql_query("SELECT * FROM full_data LIMIT 5", full_conn)
+```
 
 ## Tools and Frameworks
 
