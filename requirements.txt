@@ -1,4 +1,4 @@
-asttokens==3.0.1
+asttokens==3.0.2
 comm==0.2.3
 debugpy==1.8.21
 decorator==5.3.1
@@ -30,5 +30,5 @@ six==1.17.0
 stack-data==0.6.3
 tornado==6.5.7
 traitlets==5.15.1
-tzdata==2026.2
+tzdata==2026.3
 wcwidth==0.8.2
